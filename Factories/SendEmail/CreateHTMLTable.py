@@ -20,7 +20,7 @@ class CreateHTMLTable:
         for data in table_data:
             table += '<tr>'
             for item in data.values():
-                table += '<td>'+item+'</td>'
+                table += '<td>'+str(item)+'</td>'
             table += '</tr>' 
 
         table += '</table>'
