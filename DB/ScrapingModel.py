@@ -27,5 +27,6 @@ class ScrapingModel(DB):
 
     # get data where 
     def get_where(self,q):
-        return self.scraping.find(q)
+        print(list(self.scraping.find(q)))
+        return list(self.scraping.find(q))
  

@@ -1,6 +1,8 @@
 from DB.ScrapingModel import ScrapingModel
 from .interfaces.IWebsite import IWebsite
 from .Repositories.OlxScrapingRepository import ScrapingRespository
+from datetime import datetime
+
 # from .DB.ScrapingModel import ScrapingModel
 class OlxScraping(IWebsite):
     country = 'eg'
@@ -14,7 +16,12 @@ class OlxScraping(IWebsite):
         return scrap.get_url_data()
     
     def scrap_and_refresh_data_by_key_word(self, keyword,limit):
+        
         model = ScrapingModel()
+        if model.get_where({'keyword':keyword,'updated_at':datetime.today().strftime('%Y-%m-%d')}):
+            print('is found')
+            return model.get_where({'keyword':keyword})
+
         data = self.get_data_by_key_word(keyword,limit)
         model.insert(data,keyword)
         return data
