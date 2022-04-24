@@ -41,7 +41,7 @@ class ScrapingModel(DB):
             if 'data' in item:
                 if item['data']['keyword'] == keyword and item['data']['updated_at'] == date:
                     item['_id'] = str(item['_id'])
-                    li.append(item)
+                    li.append(item['data'])
  
         return li
  
