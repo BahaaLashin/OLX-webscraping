@@ -33,10 +33,9 @@ class ScrapingModel(DB):
         return list(self.scraping.find(q))
     
     def get_where_keyword(self,keyword):
-
+        
         date = datetime.today().strftime('%Y-%m-%d')
         li = []
-
         for item in list(self.scraping.find({})):
             if 'data' in item:
                 if item['data']['keyword'] == keyword and item['data']['updated_at'] == date:
