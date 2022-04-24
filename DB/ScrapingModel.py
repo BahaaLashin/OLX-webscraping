@@ -1,4 +1,6 @@
 from .Connect import DB
+from datetime import datetime
+from flask import jsonify
 
 class ScrapingModel(DB):
 
@@ -27,6 +29,19 @@ class ScrapingModel(DB):
 
     # get data where 
     def get_where(self,q):
-        print(list(self.scraping.find(q)))
+
         return list(self.scraping.find(q))
+    
+    def get_where_keyword(self,keyword):
+
+        date = datetime.today().strftime('%Y-%m-%d')
+        li = []
+
+        for item in list(self.scraping.find({})):
+            if 'data' in item:
+                if item['data']['keyword'] == keyword and item['data']['updated_at'] == date:
+                    item['_id'] = str(item['_id'])
+                    li.append(item)
+ 
+        return li
  

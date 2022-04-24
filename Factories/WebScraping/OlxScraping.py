@@ -18,10 +18,11 @@ class OlxScraping(IWebsite):
     def scrap_and_refresh_data_by_key_word(self, keyword,limit):
         
         model = ScrapingModel()
-        if model.get_where({'keyword':keyword,'updated_at':datetime.today().strftime('%Y-%m-%d')}):
-            print('is found')
-            return model.get_where({'keyword':keyword})
-
+        keyword_data = model.get_where_keyword(keyword)
+        if len(keyword_data):
+            print('Data From Database')
+            return keyword_data
+        print('Data From Webscraping')
         data = self.get_data_by_key_word(keyword,limit)
         model.insert(data,keyword)
         return data
