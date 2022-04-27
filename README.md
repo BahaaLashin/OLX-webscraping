@@ -1,4 +1,4 @@
-how to run task ?
+# how to run task ?
 
 open commadline in project directory
 
