@@ -9,7 +9,5 @@ class IWebsite(ABC):
     @abstractmethod
     def scrap_and_refresh_data_by_key_word(self, keyword):
         pass
-    @abstractmethod
-    def get_data_by_key_word_from_DB(self,keyword):
-        pass
+    
     

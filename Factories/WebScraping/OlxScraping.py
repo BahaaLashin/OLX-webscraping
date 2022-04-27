@@ -5,34 +5,54 @@ from datetime import datetime
 
 # from .DB.ScrapingModel import ScrapingModel
 class OlxScraping(IWebsite):
+
     country = 'eg'
     lang = 'en'
     url = ''
+    
     def __init__(self):
+
+        # create main url
         self.url = 'https://www.olx.com.'+self.country+'/'+self.lang+'/'
 
+        # model object
+        self.model = ScrapingModel()
+
+
+
     def get_data_by_key_word(self, keyword,limit):
-        scrap = ScrapingRespository(self.url,keyword,limit)
-        return scrap.get_url_data()
-    
+
+        # Scraping and return  data from Scraping Repository
+        return ScrapingRespository(self.url,keyword,limit).get_url_data()
+
+
+
     def scrap_and_refresh_data_by_key_word(self, keyword,limit):
         
-        model = ScrapingModel()
-        keyword_data = model.get_where_keyword(keyword)
+        # get data from DB
+        keyword_data = self.model.get_where_keyword(keyword)
+        
+        # check if data found today
         if len(keyword_data):
+            
+            # logs 1
             print('Data From Database')
+
+            # if found return data from DB
             return keyword_data
+
+        # logs 2
         print('Data From Webscraping')
+
+        # if data not found then scraping data from browser
         data = self.get_data_by_key_word(keyword,limit)
-        model.insert(data,keyword)
+
+        #then insert data to DB
+        self.model.insert(data,keyword)
+
+        #return data to api
         return data
 
-    def get_data_by_key_word_from_DB(self,keyword):
-        model = ScrapingModel()
-        return model.get_where({'keyword':keyword})
-    
-    def _main():
-        return 'main class'
 
     if __name__ == '__main__':
         print(__package__)
