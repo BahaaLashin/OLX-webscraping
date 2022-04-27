@@ -1,6 +1,5 @@
-## How to work ?
+how to run task ?
 
-# steps
 open commadline in project directory
 
 ### install virtualenv
